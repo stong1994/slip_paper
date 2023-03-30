@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // debugPrint(RendererBinding.instance.renderView.toStringDeep());
     return MaterialApp(
-      title: 'Best Todo',
+      title: 'Slip Paper',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
