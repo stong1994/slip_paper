@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+
+import 'card.dart';
 
 void main() {
   runApp(MyApp());
@@ -69,10 +73,39 @@ class _MyHomePageState extends State<MyHomePage>
           // ...
           // Implement the list view for the 'Garbage' tab here
           // ...
+          RandArea(),
+          RandArea(),
+          RandArea(),
+          RandArea(),
+          RandArea(),
         ],
       ),
     );
   }
+}
+
+Widget RandArea() {
+  final Random random = Random();
+  List<Widget> cards = [];
+  int randomNumber = random.nextInt(3) + 3;
+  for (int i = 0; i < randomNumber; i++) {
+    cards.add(RandomShapeCard());
+  }
+  return Scaffold(
+    body: Stack(
+      children: [
+        ...cards,
+      ],
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        // setState(() {
+        //   cards.add(RandomShapeCard());
+        // });
+      },
+      child: Icon(Icons.add),
+    ),
+  );
 }
 
 class Idea {
@@ -93,25 +126,33 @@ class Idea {
 
 List<Idea> _beDigestedIdeas = [];
 
-// Widget _buildBeDigestedListView() {
-//   return ListView.builder(
-//     itemCount: _beDigestedIdeas.length,
-//     itemBuilder: (context, index) {
-//       return ListTile(
-//         title: Text(_beDigestedIdeas[index].title),
-//         subtitle: Text(_beDigestedIdeas[index].description),
-//         trailing: IconButton(
-//           icon: Icon(Icons.check_circle_outline),
-//           onPressed: () {
-//             setState(() {
-//               _beDigestedIdeas[index].isCompleted = true;
-//             });
-//           },
-//         ),
-//       );
-//     },
-//   );
-// }
+List<Widget> _buildBeDigestedListView() {
+  return [
+    RandomShapeCard(),
+    RandomShapeCard(),
+    RandomShapeCard(),
+    RandomShapeCard(),
+    RandomShapeCard(),
+  ];
+
+  // return ListView.builder(
+  //   itemCount: _beDigestedIdeas.length,
+  //   itemBuilder: (context, index) {
+  //     return ListTile(
+  //       title: Text(_beDigestedIdeas[index].title),
+  //       subtitle: Text(_beDigestedIdeas[index].description),
+  //       trailing: IconButton(
+  //         icon: Icon(Icons.check_circle_outline),
+  //         onPressed: () {
+  //           setState(() {
+  //             _beDigestedIdeas[index].isCompleted = true;
+  //           });
+  //         },
+  //       ),
+  //     );
+  //   },
+  // );
+}
 
 class AddIdeaScreen extends StatefulWidget {
   @override
