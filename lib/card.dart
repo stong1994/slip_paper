@@ -1,35 +1,41 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:slip_paper/db/card.dart';
+import 'package:slip_paper/model/shape.dart';
+import 'package:slip_paper/model/card.dart' as card_model;
 
 class RandomShapeCard extends StatefulWidget {
+  late card_model.Card card;
+
+  RandomShapeCard(this.card);
+
   @override
   _RandomShapeCardState createState() => _RandomShapeCardState();
 }
 
 class _RandomShapeCardState extends State<RandomShapeCard> {
-  final Random random = Random();
   late ShapeBorder shape;
-
-  double positionX = 0;
-  double positionY = 0;
 
   @override
   void initState() {
     super.initState();
-    int randomNumber =
-        random.nextInt(3); // Generate a random number between 0 and 2
-    switch (randomNumber) {
-      case 0:
+
+    switch (widget.card.shape) {
+      case Shape.square:
         shape = RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         );
         break;
-      case 1:
-        shape = BeveledRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        );
+      case Shape.circle:
+        shape = CircleBorder();
         break;
-      case 2:
+      case Shape.diamond:
+        shape = CircleBorder();
+        break;
+      case Shape.hexagon:
+        shape = StadiumBorder();
+        break;
+      case Shape.octagon:
         shape = StadiumBorder();
         break;
     }
@@ -38,13 +44,14 @@ class _RandomShapeCardState extends State<RandomShapeCard> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: positionX,
-      top: positionY,
+      left: widget.card.posX,
+      top: widget.card.posY,
       child: GestureDetector(
         onPanUpdate: (details) {
           setState(() {
-            positionX += details.delta.dx;
-            positionY += details.delta.dy;
+            widget.card.posX += details.delta.dx;
+            widget.card.posY += details.delta.dy;
+            CardData().updateCard(widget.card);
           });
         },
         child: Container(
@@ -55,7 +62,7 @@ class _RandomShapeCardState extends State<RandomShapeCard> {
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'Random Shape Card',
+                widget.card.content,
                 style: TextStyle(fontSize: 16.0),
               ),
             ),

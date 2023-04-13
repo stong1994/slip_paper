@@ -57,11 +57,11 @@ class _MyHomePageState extends State<MyHomePage>
           bottom: TabBar(
             controller: _tabController,
             tabs: [
-              Tab(text: 'Be digested'),
-              Tab(text: 'Program'),
-              Tab(text: 'Remain to be evaluated'),
-              Tab(text: 'Tricky'),
-              Tab(text: 'Garbage'),
+              Tab(text: '待消化'),
+              Tab(text: '程序'),
+              Tab(text: '待评估'),
+              Tab(text: '棘手'),
+              Tab(text: '垃圾'),
             ],
           ),
         ),
@@ -83,6 +83,8 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 }
+
+enum Paper {toBeDigested, program, toBeEvaluated, garbage}
 
 Widget RandArea() {
   final Random random = Random();
