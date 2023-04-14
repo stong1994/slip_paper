@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:slip_paper/db/card.dart';
 import 'package:slip_paper/model/shape.dart';
-import 'package:slip_paper/model/card.dart' as card_model;
+import 'package:slip_paper/model/card.dart';
 
 class RandomShapeCard extends StatefulWidget {
-  late card_model.CardModel card;
+  late CardModel card;
 
   RandomShapeCard(this.card);
 
@@ -15,6 +15,7 @@ class RandomShapeCard extends StatefulWidget {
 
 class _RandomShapeCardState extends State<RandomShapeCard> {
   late ShapeBorder shape;
+  final _textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _RandomShapeCardState extends State<RandomShapeCard> {
         shape = StadiumBorder();
         break;
     }
+    _textEditingController.text = widget.card.content;
   }
 
   @override
@@ -58,12 +60,25 @@ class _RandomShapeCardState extends State<RandomShapeCard> {
           height: 100.0,
           width: 150.0,
           child: Card(
+            color: widget.card.color,
             shape: shape,
             child: Padding(
               padding: EdgeInsets.all(16.0),
-              child: Text(
-                widget.card.content,
-                style: TextStyle(fontSize: 16.0),
+              child: TextField(
+                controller: _textEditingController,
+                style: const TextStyle(fontSize: 16.0),
+                maxLines: null,
+                textAlign: TextAlign.center,
+                textAlignVertical: TextAlignVertical.center,
+                autofocus: true,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '请输入...',
+                ),
+                onSubmitted: (value) {
+                  widget.card.content = value;
+                  CardData().updateCard(widget.card);
+                },
               ),
             ),
           ),

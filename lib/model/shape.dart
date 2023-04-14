@@ -1,4 +1,11 @@
+import 'dart:math';
+
 enum Shape { square, circle, diamond, hexagon, octagon }
+
+Shape randomShape() {
+  final index = Random().nextInt(Shape.values.length);
+  return Shape.values[index];
+}
 
 enum PaperType { toBeDigested, program, toBeEvaluated, tricky, garbage }
 

@@ -1,21 +1,29 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_randomcolor/flutter_randomcolor.dart';
+import 'package:slip_paper/page/paper.dart';
+import 'package:uuid/uuid.dart';
+
 import 'shape.dart';
 
 class CardModel {
   String id;
   String content;
-  int type;
+  PaperType type;
   double posX;
   double posY;
   Shape shape;
-  String color;
+  Color color;
   int createDt;
   int updateDt;
 
   CardModel({
     this.id = "",
     this.content = "",
-    this.color = "",
-    this.type = 0,
+    this.color = Colors.white,
+    this.type = PaperType.toBeDigested,
     this.posX = 0,
     this.posY = 0,
     this.shape = Shape.circle,
@@ -23,11 +31,26 @@ class CardModel {
     this.updateDt = 0,
   });
 
+  CardModel random(PaperType type, double mid) {
+    var options = Options(format: Format.hex, colorType: ColorType.green);
+    var color = RandomColor.getColor(options);
+    return CardModel(
+      id: Uuid().v4(),
+      color: stringToColor(color),
+      type: type,
+      posX: mid,
+      posY: mid,
+      shape: randomShape(),
+      createDt: Timeline.now,
+      updateDt: Timeline.now,
+    );
+  }
+
   CardModel copyWith({
     String? id,
     String? content,
-    String? color,
-    int? type,
+    Color? color,
+    PaperType? type,
     double? posX,
     double? posY,
     Shape? shape,
@@ -51,8 +74,8 @@ class CardModel {
     return CardModel(
       id: json['id'],
       content: json['content'],
-      color: json['color'],
-      type: json['type'],
+      color: stringToColor(json['color']),
+      type: PaperType.values[json['type']],
       posX: json['pos_x'],
       posY: json['pos_y'],
       shape: Shape.values[json['shape']],
@@ -64,12 +87,26 @@ class CardModel {
   Map<String, dynamic> toJson() => {
         'id': id,
         'content': content,
-        'color': color,
-        'type': type,
+        'color': colorToString(color),
+        'type': type.index,
         'create_dt': createDt,
         'update_dt': updateDt,
         'pos_x': posX,
         'pos_y': posY,
         'shape': shape.index,
       };
+}
+
+Color stringToColor(String colorString) {
+  String valueString = colorString.replaceAll('#', '');
+  if (valueString.length == 6) {
+    valueString = 'FF' + valueString;
+  }
+  int value = int.parse(valueString, radix: 16);
+  return Color(value);
+}
+
+String colorToString(Color color) {
+  String hex = color.value.toRadixString(16).padLeft(8, '0');
+  return '#$hex';
 }

@@ -7,7 +7,9 @@ import 'card.dart';
 
 class Paper extends StatefulWidget {
   late PaperType type;
+
   Paper({required this.type});
+
   @override
   State<StatefulWidget> createState() => _PaperState();
 }
@@ -35,17 +37,18 @@ class _PaperState extends State<Paper> {
               child: Text("Error: ${snapshot.error}}"),
             );
           }
-          
+
           return Scaffold(
             body: Stack(
               children: List.generate(snapshot.data!.length,
-              (index) => RandomShapeCard(snapshot.data![index])),
+                  (index) => RandomShapeCard(snapshot.data![index])),
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                // setState(() {
-                //   cards.add(RandomShapeCard());
-                // });
+                setState(() {
+                  CardData()
+                      .addCard(CardModel().random(widget.type, 10)); // todo
+                });
               },
               child: Icon(Icons.add),
             ),
