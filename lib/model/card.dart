@@ -1,18 +1,20 @@
 import 'shape.dart';
 
-class Card {
+class CardModel {
   String id;
   String content;
   int type;
   double posX;
   double posY;
   Shape shape;
+  String color;
   int createDt;
   int updateDt;
 
-  Card({
+  CardModel({
     this.id = "",
     this.content = "",
+    this.color = "",
     this.type = 0,
     this.posX = 0,
     this.posY = 0,
@@ -21,9 +23,10 @@ class Card {
     this.updateDt = 0,
   });
 
-  Card copyWith({
+  CardModel copyWith({
     String? id,
     String? content,
+    String? color,
     int? type,
     double? posX,
     double? posY,
@@ -31,9 +34,10 @@ class Card {
     int? createDt,
     int? updateDt,
   }) {
-    return Card(
+    return CardModel(
       id: id ?? this.id,
       content: content ?? this.content,
+      color: color ?? this.color,
       type: type ?? this.type,
       posX: posX ?? this.posX,
       posY: posY ?? this.posY,
@@ -43,10 +47,11 @@ class Card {
     );
   }
 
-  factory Card.fromJson(Map<String, dynamic> json) {
-    return Card(
+  factory CardModel.fromJson(Map<String, dynamic> json) {
+    return CardModel(
       id: json['id'],
       content: json['content'],
+      color: json['color'],
       type: json['type'],
       posX: json['pos_x'],
       posY: json['pos_y'],
@@ -59,6 +64,7 @@ class Card {
   Map<String, dynamic> toJson() => {
         'id': id,
         'content': content,
+        'color': color,
         'type': type,
         'create_dt': createDt,
         'update_dt': updateDt,

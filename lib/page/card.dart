@@ -5,7 +5,7 @@ import 'package:slip_paper/model/shape.dart';
 import 'package:slip_paper/model/card.dart' as card_model;
 
 class RandomShapeCard extends StatefulWidget {
-  late card_model.Card card;
+  late card_model.CardModel card;
 
   RandomShapeCard(this.card);
 
