@@ -31,15 +31,15 @@ class CardModel {
     this.updateDt = 0,
   });
 
-  CardModel random(PaperType type, double mid) {
+  CardModel random(PaperType type, double top, double left) {
     var options = Options(format: Format.hex, colorType: ColorType.green);
     var color = RandomColor.getColor(options);
     return CardModel(
       id: Uuid().v4(),
       color: stringToColor(color),
       type: type,
-      posX: mid,
-      posY: mid,
+      posX: left,
+      posY: top,
       shape: randomShape(),
       createDt: Timeline.now,
       updateDt: Timeline.now,

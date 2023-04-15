@@ -20,8 +20,6 @@ class _PaperState extends State<Paper> {
     super.initState();
   }
 
-  // Future<List<CardModel>> getCards()  => CardData().getCards(widget.type);
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<CardModel>>(
@@ -37,22 +35,28 @@ class _PaperState extends State<Paper> {
               child: Text("Error: ${snapshot.error}}"),
             );
           }
-
-          return Scaffold(
-            body: Stack(
-              children: List.generate(snapshot.data!.length,
-                  (index) => RandomShapeCard(snapshot.data![index])),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  CardData()
-                      .addCard(CardModel().random(widget.type, 10)); // todo
-                });
-              },
-              child: Icon(Icons.add),
-            ),
-          );
+          return LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            double height = constraints.maxHeight;
+            double width = constraints.maxWidth;
+            print('height ' + height.toString());
+            print('width ' + width.toString());
+            return Scaffold(
+              body: Stack(
+                children: List.generate(snapshot.data!.length,
+                    (index) => RandomShapeCard(snapshot.data![index])),
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  setState(() {
+                    CardData().addCard(CardModel().random(
+                        widget.type, height / 2 - 50, width / 2 - 75)); // todo
+                  });
+                },
+                child: Icon(Icons.add),
+              ),
+            );
+          });
         });
   }
 }

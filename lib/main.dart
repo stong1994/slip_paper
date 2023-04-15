@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Slip Paper',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
@@ -71,87 +71,3 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 }
-
-// class AddIdeaScreen extends StatefulWidget {
-//   @override
-//   _AddIdeaScreenState createState() => _AddIdeaScreenState();
-// }
-
-// class _AddIdeaScreenState extends State<AddIdeaScreen> {
-//   final _formKey = GlobalKey<FormState>();
-//   String? _title;
-//   String? _description;
-//   String? _category;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Add New Idea')),
-//       body: Padding(
-//         padding: EdgeInsets.all(16),
-//         child: Form(
-//           key: _formKey,
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               TextFormField(
-//                 decoration: InputDecoration(labelText: 'Title'),
-//                 validator: (value) {
-//                   if (value!.isEmpty) {
-//                     return 'Please enter a title';
-//                   }
-//                   return null;
-//                 },
-//                 onSaved: (value) {
-//                   _title = value;
-//                 },
-//               ),
-//               TextFormField(
-//                 decoration: InputDecoration(labelText: 'Description'),
-//                 validator: (value) {
-//                   if (value!.isEmpty) {
-//                     return 'Please enter a description';
-//                   }
-//                   return null;
-//                 },
-//                 onSaved: (value) {
-//                   _description = value;
-//                 },
-//               ),
-//               TextFormField(
-//                 decoration: InputDecoration(labelText: 'Category'),
-//                 validator: (value) {
-//                   if (value!.isEmpty) {
-//                     return 'Please enter a category';
-//                   }
-//                   return null;
-//                 },
-//                 onSaved: (value) {
-//                   _category = value;
-//                 },
-//               ),
-//               SizedBox(height: 16),
-//               ElevatedButton(
-//                 child: Text('Save'),
-//                 onPressed: () {
-//                   if (_formKey.currentState!.validate()) {
-//                     _formKey.currentState?.save();
-//                     Idea newIdea = Idea(
-//                       title: _title!,
-//                       description: _description!,
-//                       category: _category!,
-//                       dateCreated: DateTime.now(),
-//                     );
-//                     // Add the new idea to the appropriate list
-//                     // ...
-//                     Navigator.pop(context);
-//                   }
-//                 },
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
